@@ -5,12 +5,19 @@ namespace Homework2
     class Student
     {
         public string Name { get; set; }
+
         public string Surname1 { get; set; }
+
         public string Surname2 { get; set; }
+
         public int ProjectScore { get; set; }
+
         public int DeliveredTasks { get; set; }
+
         public int StudentParticipation { get; set; }
+
         private Student() { }
+
         public Student(string name, string surname1, string surname2)
         {
             this.Name = name;
