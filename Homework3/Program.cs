@@ -28,7 +28,8 @@ namespace Homework3
             {
                 Console.Write("Enter natural number: ");
                 n = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine($"Sum of first {n} natural numbers is: {NSum(n)}");
+                Console.WriteLine($"Sum of first {n} natural numbers is: " +
+                                  $"{NSum(n)}");
             }
             catch (FormatException)
             {
@@ -286,6 +287,106 @@ namespace Homework3
         }
         // ********************************************************************
 
+        /*
+         * Exercise 7
+         * ********************************************************************
+         */
+        static void Exercise7()
+        {
+            ComplexNumber cn1 = new ComplexNumber(-23.56, 0);
+            ComplexNumber cn2 = new ComplexNumber(45.5, -0.5);
+            Console.WriteLine($"First complex number: {cn1}");
+            Console.WriteLine($"First complex number: {cn2}");
+            Console.WriteLine($"({cn1}) + ({cn2}): " +
+                              $"{ComplexNumber.Add(cn1, cn2)}");
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 8
+         * ********************************************************************
+         */
+        static void Exercise8()
+        {
+            Car c1 = new Car();
+            Car c2 = new Car("Beetle", 840, 1.5);
+            Car c3 = new Car("Thunderbird", 2005, 1.2);
+            Console.WriteLine($"\nModel: {c1.Model}");
+            Console.WriteLine($"Weight: {c1.Weight} kg");
+            Console.WriteLine($"Height: {c1.Height} m");
+            c1.Status();
+            Console.WriteLine($"\nModel: {c2.Model}");
+            Console.WriteLine($"Weight: {c2.Weight} kg");
+            Console.WriteLine($"Height: {c2.Height} m");
+            c2.Status();
+            Console.WriteLine($"\nModel: {c3.Model}");
+            Console.WriteLine($"Weight: {c3.Weight} kg");
+            Console.WriteLine($"Height: {c3.Height} m");
+            c3.Status();
+            Console.WriteLine("\nChanging first car...");
+            c1.SetModel("Ford GT40");
+            c1.Weight = 1385;
+            c1.Height = 1.03;
+            Console.WriteLine($"\nModel: {c1.Model}");
+            Console.WriteLine($"Weight: {c1.Weight} kg");
+            Console.WriteLine($"Height: {c1.Height} m");
+            c1.SwitchOn();
+            Console.WriteLine("\nChanging second car...");
+            c2.Weight = 800.1;
+            Console.WriteLine($"\nModel: {c2.Model}");
+            Console.WriteLine($"Weight: {c2.Weight} kg");
+            Console.WriteLine($"Height: {c2.Height} m");
+            c1.SwitchHeadlightsOn();
+            Console.WriteLine("\nChanging third car...");
+            Console.WriteLine($"\nModel: {c3.Model}");
+            Console.WriteLine($"Weight: {c3.Weight} kg");
+            Console.WriteLine($"Height: {c3.Height} m");
+            c3.SwitchOn();
+            c3.SwitchHeadlightsOn();
+            c3.UseSpare();
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 9
+         * ********************************************************************
+         */
+        static void Exercise9()
+        {
+            Circle c1 = new Circle(6);
+            EquilateralTriangle et1 = new EquilateralTriangle(10);
+            Console.WriteLine($"Circle with a radius of {c1.Radius}");
+            Console.WriteLine($"Area: {c1.GetArea()}");
+            Console.WriteLine("Side of posible equilateral triangle " +
+                              $"container: {c1.GetTriangleContainer().Side}");
+            Console.WriteLine($"\nEquilateral Triangle with a side of " +
+                              $"{et1.Side}");
+            Console.WriteLine($"Height: {et1.GetHeight()}");
+            Console.WriteLine($"Area: {et1.GetArea()}");
+            Console.WriteLine("Radius of circumcircle : " +
+                              $"{et1.GetCircleContainer().Radius}");
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 10
+         * ********************************************************************
+         */
+        static void Exercise10()
+        {
+            Person p1 = new Person("Ana", 24, 1.48, 45);
+            Person p2 = new Person("Guadalupe", 60, 1.89, 95.9);
+            Console.WriteLine(p1);
+            Person.GuessGender(p1);
+            Console.WriteLine($"Is Short: {p1.IsShort()}");
+            Console.WriteLine($"Is Old: {p1.IsOld()}\n");
+            Console.WriteLine(p2);
+            Person.GuessGender(p2);
+            Console.WriteLine($"Is Short: {p2.IsShort()}");
+            Console.WriteLine($"Is Old: {p2.IsOld()}");
+        }
+        // ********************************************************************
+
         static void Main(string[] args)
         {
             int option = 0;
@@ -340,6 +441,18 @@ namespace Homework3
                         break;
                     case 6:
                         Exercise6();
+                        break;
+                    case 7:
+                        Exercise7();
+                        break;
+                    case 8:
+                        Exercise8();
+                        break;
+                    case 9:
+                        Exercise9();
+                        break;
+                    case 10:
+                        Exercise10();
                         break;
                     case 19:
                         Console.WriteLine("Bye.");
