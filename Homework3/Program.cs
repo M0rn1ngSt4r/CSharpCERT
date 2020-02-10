@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Homework3
 {
@@ -171,6 +173,119 @@ namespace Homework3
         }
         // ********************************************************************
 
+        /*
+         * Exercise 5
+         * ********************************************************************
+         */
+
+        static void Exercise5()
+        {
+            Dictionary<string, string> phonebook = new Dictionary<string, string>();
+            int option = 0;
+            while (option != 4)
+            {
+                Console.WriteLine("\nPHONEBOOK\n");
+                foreach (KeyValuePair<string, string> entry in phonebook)
+                {
+                    Console.WriteLine($"Name: {entry.Key}");
+                    Console.WriteLine($"Number: {entry.Value}\n");
+                }
+                Console.WriteLine("1. Add contact.");
+                Console.WriteLine("2. Delete contact.");
+                Console.WriteLine("3. Modify contact.");
+                Console.WriteLine("4. Exit.");
+                Console.Write("Your option: ");
+                try
+                {
+                    option = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    option = 0;
+                    Console.WriteLine("Only numbers, try again...");
+                    continue;
+                }
+                string contact = "";
+                string number = "";
+                if (option > 0 && option < 4)
+                {
+                    Console.Write("Contact name: ");
+                    contact = Console.ReadLine();
+                }
+                if (option == 1 || option == 3)
+                {
+                    Regex regex = new Regex(@"^\d{10}$");
+                    do
+                    {
+                        Console.Write("Contact number (10 numbers format): ");
+                        number = Console.ReadLine();
+                    } while (!regex.IsMatch(number));
+                }
+                switch (option)
+                {
+                    case 1:
+                        try
+                        {
+                            phonebook.Add(contact, number);
+                        }
+                        catch (ArgumentException)
+                        {
+                            Console.WriteLine("Contact already exists...");
+                        }
+                        break;
+                    case 2:
+                        if (!phonebook.Remove(contact))
+                        {
+                            Console.WriteLine("Contact does not exist...");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Contact has been deleted.");
+                        }
+                        break;
+                    case 3:
+                        try
+                        {
+                            if (!phonebook.ContainsKey(contact))
+                            {
+                                throw new KeyNotFoundException();
+                            }
+                            phonebook[contact] = number;
+                        }
+                        catch (KeyNotFoundException)
+                        {
+                            Console.WriteLine("Contact does not exist...");
+                        }
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option...");
+                        break;
+                }
+            }
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 6
+         * ********************************************************************
+         */
+        static void Exercise6()
+        {
+            BankAccount ba1 = new BankAccount("Fulanito1", 10000.50);
+            BankAccount ba2 = new BankAccount("Fulanito2", -10.99);
+            Console.WriteLine("Adding $99.99 to Fulanito1...");
+            ba1.AddMoney(99.99);
+            Console.WriteLine("Withdrawing $50000 from Fulanito1...");
+            ba1.MakeWithdraw(50000);
+            Console.WriteLine("Adding $9999.99 to Fulanito2...");
+            ba2.AddMoney(9999.99);
+            Console.WriteLine("Withdrawing $0.99 from Fulanito2...");
+            ba2.MakeWithdraw(0.99);
+        }
+        // ********************************************************************
+
         static void Main(string[] args)
         {
             int option = 0;
@@ -219,6 +334,12 @@ namespace Homework3
                         break;
                     case 4:
                         Exercise4();
+                        break;
+                    case 5:
+                        Exercise5();
+                        break;
+                    case 6:
+                        Exercise6();
                         break;
                     case 19:
                         Console.WriteLine("Bye.");
