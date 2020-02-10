@@ -6,7 +6,6 @@ namespace Homework3
 {
     class Car
     {
-        public string Model { get; private set; }
         public double Weight { get; set; }
         public double Height { get; set; }
         public bool SwitchedOn { get; private set; }
@@ -16,7 +15,6 @@ namespace Homework3
 
         public Car()
         {
-            this.Model = string.Empty;
             this.Weight = 0;
             this.Height = 0;
             this.SwitchedOn = false;
@@ -24,26 +22,13 @@ namespace Homework3
             this.HeadlightsOn = false;
         }
 
-        public Car(string model, double weight, double height)
+        public Car(double weight, double height)
         {
-            this.Model = model;
             this.Weight = weight;
             this.Height = height;
             this.SwitchedOn = false;
             this.SpareTire = false;
             this.HeadlightsOn = false;
-        }
-
-        public void SetModel(string model)
-        {
-            if (model != null)
-            {
-                this.Model = model;
-            }
-            else
-            {
-                Console.WriteLine("Null value not accepted...");
-            }
         }
 
         public void SwitchOn()

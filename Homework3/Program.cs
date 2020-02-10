@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -309,37 +310,30 @@ namespace Homework3
         static void Exercise8()
         {
             Car c1 = new Car();
-            Car c2 = new Car("Beetle", 840, 1.5);
-            Car c3 = new Car("Thunderbird", 2005, 1.2);
-            Console.WriteLine($"\nModel: {c1.Model}");
-            Console.WriteLine($"Weight: {c1.Weight} kg");
+            Car c2 = new Car(840, 1.5);
+            Car c3 = new Car(2005, 1.2);
+            Console.WriteLine($"\nWeight: {c1.Weight} kg");
             Console.WriteLine($"Height: {c1.Height} m");
             c1.Status();
-            Console.WriteLine($"\nModel: {c2.Model}");
-            Console.WriteLine($"Weight: {c2.Weight} kg");
+            Console.WriteLine($"\nWeight: {c2.Weight} kg");
             Console.WriteLine($"Height: {c2.Height} m");
             c2.Status();
-            Console.WriteLine($"\nModel: {c3.Model}");
-            Console.WriteLine($"Weight: {c3.Weight} kg");
+            Console.WriteLine($"\nWeight: {c3.Weight} kg");
             Console.WriteLine($"Height: {c3.Height} m");
             c3.Status();
             Console.WriteLine("\nChanging first car...");
-            c1.SetModel("Ford GT40");
             c1.Weight = 1385;
             c1.Height = 1.03;
-            Console.WriteLine($"\nModel: {c1.Model}");
-            Console.WriteLine($"Weight: {c1.Weight} kg");
+            Console.WriteLine($"\nWeight: {c1.Weight} kg");
             Console.WriteLine($"Height: {c1.Height} m");
             c1.SwitchOn();
             Console.WriteLine("\nChanging second car...");
             c2.Weight = 800.1;
-            Console.WriteLine($"\nModel: {c2.Model}");
-            Console.WriteLine($"Weight: {c2.Weight} kg");
+            Console.WriteLine($"\nWeight: {c2.Weight} kg");
             Console.WriteLine($"Height: {c2.Height} m");
             c1.SwitchHeadlightsOn();
             Console.WriteLine("\nChanging third car...");
-            Console.WriteLine($"\nModel: {c3.Model}");
-            Console.WriteLine($"Weight: {c3.Weight} kg");
+            Console.WriteLine($"\nWeight: {c3.Weight} kg");
             Console.WriteLine($"Height: {c3.Height} m");
             c3.SwitchOn();
             c3.SwitchHeadlightsOn();
@@ -551,6 +545,277 @@ namespace Homework3
         }
         // ********************************************************************
 
+        /*
+         * Exercise 13
+         * ********************************************************************
+         */
+        static void Exercise13()
+        {
+            try
+            {
+                VintageCar vc = new VintageCar("Thunderbird", 2005, 1.2);
+                vc.Turbo = true;
+                SportsCar sc = new SportsCar("P1", 1547, 1.188);
+                sc.IsHybrid = true;
+                Console.WriteLine(vc);
+                vc.Status();
+                Console.WriteLine($"Turbo: {((vc.Turbo) ? "Yes" : "No")}");
+                vc.SwitchOn();
+                Console.WriteLine($"\n{sc}");
+                sc.Status();
+                sc.SwitchHeadlightsOn();
+                sc.UseSpare();
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Null/Empty models are not allowed...");
+            }
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 14
+         * ********************************************************************
+         */
+        static void Exercise14()
+        {
+            IClock c1 = new SolarClock();
+            IClock c2 = new AnalogClock();
+            IClock c3 = new DigitalClock();
+            Console.WriteLine("\nSolar clock:");
+            Console.WriteLine($"Time (Only hour available): {c1.GetTime()}");
+            Console.Write("Alarm tune: ");
+            c1.SoundAlarm();
+            Console.WriteLine("\nAnalog clock:");
+            Console.WriteLine("Time (Only hour and minutes available): " +
+                              $"{c2.GetTime()}");
+            Console.Write("Alarm tune: ");
+            c2.SoundAlarm();
+            Console.WriteLine("\nDigital clock:");
+            Console.WriteLine($"Time and date: {c3.GetTime()}");
+            Console.Write("Alarm tune: ");
+            c3.SoundAlarm();
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 15
+         * ********************************************************************
+         */
+        static void Exercise15()
+        {
+            double n1 = 0;
+            double n2 = 0;
+            int option = 0;
+            while (option != 7)
+            {
+                Console.WriteLine("\nCALCULATOR\n");
+                Console.WriteLine($"Number 1:\n{n1}");
+                Console.WriteLine($"\nNumber 2:\n{n2}\n");
+                Console.WriteLine("1. Set First Number.");
+                Console.WriteLine("2. Set Second Number.");
+                Console.WriteLine("3. Addition.");
+                Console.WriteLine("4. Subtraction.");
+                Console.WriteLine("5. Multiplication.");
+                Console.WriteLine("6. Division.");
+                Console.WriteLine("7. Exit.");
+                Console.Write("Your option: ");
+                try
+                {
+                    option = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    option = 0;
+                    Console.WriteLine("Only numbers, try again...");
+                    continue;
+                }
+                switch (option)
+                {
+                    case 1:
+                        try
+                        {
+                            n1 = Convert.ToDouble(Console.ReadLine());
+                        }
+                        catch (FormatException)
+                        {
+                            n1 = 0;
+                            Console.WriteLine("Only numbers...");
+                        }
+                        catch (OverflowException)
+                        {
+                            n1 = 0;
+                            Console.WriteLine("Number is too large...");
+                        }
+                        break;
+                    case 2:
+                        try
+                        {
+                            n2 = Convert.ToDouble(Console.ReadLine());
+                        }
+                        catch (FormatException)
+                        {
+                            n2 = 0;
+                            Console.WriteLine("Only numbers...");
+                        }
+                        catch (OverflowException)
+                        {
+                            n2 = 0;
+                            Console.WriteLine("Number is too large...");
+                        }
+                        break;
+                    case 3:
+                        try
+                        {
+                            Console.WriteLine($"{n1} + {n2} = {n1 + n2}");
+                        }
+                        catch (OverflowException)
+                        {
+                            Console.WriteLine("Result is too large...");
+                        }
+                        break;
+                    case 4:
+                        try
+                        {
+                            Console.WriteLine($"{n1} - {n2} = {n1 - n2}");
+                        }
+                        catch (OverflowException)
+                        {
+                            Console.WriteLine("Result is too large...");
+                        }
+                        break;
+                    case 5:
+                        try
+                        {
+                            Console.WriteLine($"{n1} X {n2} = {n1 * n2}");
+                        }
+                        catch (OverflowException)
+                        {
+                            Console.WriteLine("Result is too large...");
+                        }
+                        break;
+                    case 6:
+                        try
+                        {
+                            if (n2 == 0)
+                            {
+                                throw new DivideByZeroException();
+                            }
+                            Console.WriteLine($"{n1} / {n2} = {n1 / n2}");
+                        }
+                        catch (OverflowException)
+                        {
+                            Console.WriteLine("Result is too large...");
+                        }
+                        catch (DivideByZeroException)
+                        {
+                            Console.WriteLine("Division by zero is not defined...");
+                        }
+                        break;
+                    case 7:
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option...");
+                        break;
+                }
+            }
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 16
+         * ********************************************************************
+         */
+        static void Exercise16()
+        {
+            Bird b1 = new Bird("Canary");
+            Bird b2 = new FlightlessBird("Dodo", false);
+            Console.WriteLine($"\n{b1}");
+            b1.Fly();
+            Console.WriteLine($"\n{b2}");
+            try
+            {
+                b2.Fly();
+            }
+            catch (NotImplementedException)
+            {
+                Console.WriteLine("NotImplementedException (cannot fly)");
+            }
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 17
+         * ********************************************************************
+         */
+        static void Exercise17()
+        {
+            List<Train> trains = new List<Train>();
+            Random rnd = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                int type = rnd.Next(0, 3);
+                if (type == 0)
+                {
+                    trains.Add(new Train("Basic Train", 50));
+                }
+                else if (type == 1)
+                {
+                    trains.Add(new SteamLocomotive("Steam Train", 120, "Coal",
+                                                   1000.5));
+                }
+                else
+                {
+                    trains.Add(new HighSpeedTrain("Magnetic Train", 590, true));
+                }
+            }
+            foreach (Train t in trains)
+            {
+                Console.WriteLine($"\n{t}");
+                t.Advance();
+                try
+                {
+                    t.Reverse();
+                }
+                catch (NotImplementedException)
+                {
+                    Console.WriteLine("Cannot go in reverse...");
+                }
+            }
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 18
+         * ********************************************************************
+         */
+        static void Exercise18()
+        {
+            string fileName;
+            string data;
+            do
+            {
+                Console.Write("Insert file name: ");
+                fileName = Console.ReadLine();
+            } while (fileName == string.Empty);
+            do
+            {
+                Console.WriteLine("Insert data to append to file:");
+                data = Console.ReadLine();
+            } while (data == string.Empty);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            path = Path.Combine(path, "RMRHomework3");
+            if (!Directory.Exists(path))
+            {
+                Console.WriteLine($"Creating directory: {path}");
+                Directory.CreateDirectory(path);
+            }
+            Console.WriteLine($"Writing to {Path.Combine(path, fileName)}");
+            File.AppendAllText(Path.Combine(path, fileName), data);
+            Console.WriteLine("Done!");
+        }
+        // ********************************************************************
+
         static void Main(string[] args)
         {
             int option = 0;
@@ -623,6 +888,24 @@ namespace Homework3
                         break;
                     case 12:
                         Exercise12();
+                        break;
+                    case 13:
+                        Exercise13();
+                        break;
+                    case 14:
+                        Exercise14();
+                        break;
+                    case 15:
+                        Exercise15();
+                        break;
+                    case 16:
+                        Exercise16();
+                        break;
+                    case 17:
+                        Exercise17();
+                        break;
+                    case 18:
+                        Exercise18();
                         break;
                     case 19:
                         Console.WriteLine("Bye.");
