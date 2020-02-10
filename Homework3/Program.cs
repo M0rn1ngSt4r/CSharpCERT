@@ -387,6 +387,170 @@ namespace Homework3
         }
         // ********************************************************************
 
+        /*
+         * Exercise 11
+         * ********************************************************************
+         */
+        static void Exercise11()
+        {
+            Matrix m1 = new Matrix(1);
+            Matrix m2 = new Matrix(1);
+            int option = 0;
+            while (option != 6)
+            {
+                Console.WriteLine("\nMATRIX CALCULATOR\n");
+                Console.WriteLine($"Matrix 1:\n{m1}");
+                Console.WriteLine($"\nMatrix 2:\n{m2}");
+                Console.WriteLine("1. Set First matrix.");
+                Console.WriteLine("2. Set Second matrix.");
+                Console.WriteLine("3. Addition.");
+                Console.WriteLine("4. Subtraction.");
+                Console.WriteLine("5. Multiplication.");
+                Console.WriteLine("6. Exit.");
+                Console.Write("Your option: ");
+                try
+                {
+                    option = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    option = 0;
+                    Console.WriteLine("Only numbers, try again...");
+                    continue;
+                }
+                switch (option)
+                {
+                    case 1:
+                        m1 = Matrix.InitializeMatrix();
+                        break;
+                    case 2:
+                        m2 = Matrix.InitializeMatrix();
+                        break;
+                    case 3:
+                        try
+                        {
+                            Console.WriteLine($"Addition:\n{Matrix.Addition(m1, m2)}");
+                        }
+                        catch (ArgumentException)
+                        {
+                            Console.WriteLine("Incompatible matrices...");
+                        }
+                        break;
+                    case 4:
+                        try
+                        {
+                            Console.WriteLine($"Subtraction:\n{Matrix.Subtraction(m1, m2)}");
+                        }
+                        catch (ArgumentException)
+                        {
+                            Console.WriteLine("Incompatible matrices...");
+                        }
+                        break;
+                    case 5:
+                        try
+                        {
+                            Console.WriteLine($"Multiplication:\n{Matrix.Multiplication(m1, m2)}");
+                        }
+                        catch (ArgumentException)
+                        {
+                            Console.WriteLine("Incompatible matrices...");
+                        }
+                        break;
+                    case 6:
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option...");
+                        break;
+                }
+            }
+        }
+        // ********************************************************************
+
+        /*
+         * Exercise 12
+         * ********************************************************************
+         */
+        static void Exercise12()
+        {
+            List<Product> shoppingList = new List<Product>();
+            int option = 0;
+            int i;
+            double total;
+            while (option != 4)
+            {
+                total = 0;
+                Console.WriteLine("\nSHOPPING LIST\n");
+                for (i = 0; i < shoppingList.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {shoppingList[i]}");
+                    total += shoppingList[i].Price;
+                }
+                Console.WriteLine($"\nTotal: {total:0.00}");
+                Console.WriteLine("\nBECARIO MART\n");
+                Console.WriteLine("1. Add product.");
+                Console.WriteLine("2. Remove product.");
+                Console.WriteLine("3. Pay.");
+                Console.WriteLine("4. Exit.");
+                Console.Write("Your option: ");
+                try
+                {
+                    option = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    option = 0;
+                    Console.WriteLine("Only numbers, try again...");
+                    continue;
+                }
+                switch (option)
+                {
+                    case 1:
+                        shoppingList.Add(Product.Create());
+                        break;
+                    case 2:
+                        if (shoppingList.Count == 0)
+                        {
+                            Console.WriteLine("Shopping list is empty...");
+                            continue;
+                        }
+                        int index;
+                        try
+                        {
+                            index = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Only numbers, try again...");
+                            continue;
+                        }
+                        if (index <= 0 || index > shoppingList.Count)
+                        {
+                            Console.WriteLine("Index out of bounds...");
+                            continue;
+                        }
+                        shoppingList.RemoveAt(index - 1);
+                        break;
+                    case 3:
+                        if (total <= 500)
+                        {
+                            Console.WriteLine("THANKS FOR YOUR PURCHASE!");
+                            shoppingList.Clear();
+                        }
+                        else
+                        {
+                            Console.WriteLine("LIMIT EXCEEDED, REMOVE ITEMS...");
+                        }
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option...");
+                        break;
+                }
+            }
+        }
+        // ********************************************************************
+
         static void Main(string[] args)
         {
             int option = 0;
@@ -453,6 +617,12 @@ namespace Homework3
                         break;
                     case 10:
                         Exercise10();
+                        break;
+                    case 11:
+                        Exercise11();
+                        break;
+                    case 12:
+                        Exercise12();
                         break;
                     case 19:
                         Console.WriteLine("Bye.");
